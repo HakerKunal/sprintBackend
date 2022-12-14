@@ -82,13 +82,13 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'dummy',
+        'NAME': 'bwfxgtre',
 
-        'USER': 'postgres',
+        'USER': 'bwfxgtre',
 
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'ji-4mB8vUK_saBy5G_OHh2901ePqXbK-',
 
-        'HOST': 'localhost',
+        'HOST': 'salt.db.elephantsql.com',
 
         'PORT': '',
     }
