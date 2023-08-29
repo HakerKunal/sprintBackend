@@ -32,7 +32,7 @@ class Votes(models.Model):
 class SpecialMentions(models.Model):
     sprint_id = models.ForeignKey(Sprint, on_delete=models.CASCADE)
     vote_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    special_mentions = models.CharField(max_length=200, null=True)
+    special_mentions = models.CharField(max_length=1000, null=True)
 
 
 class ShowResult(models.Model):

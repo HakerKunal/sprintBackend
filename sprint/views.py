@@ -599,7 +599,7 @@ class SprintData(APIView):
                 if request.data.get("user_id") != user.id:
                     full_name = user.first_name + " " + user.last_name
 
-                    user_obj = {"name": full_name, "id": user.id}
+                    user_obj = {"name": full_name, "id": user.id, "is_active": user.is_active}
                     list_of_username.append(user_obj)
 
             return Response(
@@ -844,6 +844,8 @@ class SpecialMention(APIView):
             print(request.data)
             vote_by = request.data.get("user_id")
             request.data.update({"vote_by": vote_by})
+            if len(request.data.get("special_mentions")) > 1000:
+                raise ValidationError(detail="special_mentions text should be less then 1000 characters")
             sprint = Sprint.objects.get(id=request.data.get("sprint_id"))
             if (sprint):
                 specialmention = SpecialMentions.objects.filter(vote_by=request.data.get("vote_by"),
@@ -869,7 +871,16 @@ class SpecialMention(APIView):
 
                 }, status=status.HTTP_400_BAD_REQUEST
             )
+        except ValidationError as e:
+
+            logging.error("Validation failed")
+            return Response(
+                {
+                    "message": e.detail
+                },
+                status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+
             return Response(
                 {
                     "message": "Exception Occurres",
